@@ -1,11 +1,11 @@
 import "./App.css";
-import Students from "./components/students";
+import GameBoard from "./components/gameboard";
 
 function App() {
   return (
     <div className="App">
-      Hello from Techtonica
-      <Students />
+      <strong>Not Wordle</strong> tm
+      <GameBoard />
     </div>
   );
 }
