@@ -2,30 +2,30 @@ import { useState, useEffect } from "react";
 import Form from "./form";
 
 function Highscore() {
-  const mockPlayers = [
-    { nickname: "Eileen", highscore: "3/6" },
-    { nickname: "Tzima", highscore: "5/6" },
-    { nickname: "Coleen", highscore: "1/6" },
-  ];
-  const [players, setPlayers] = useState(mockPlayers);
-  // const [players, setPlayers] = useState([]);
+  // const mockPlayers = [
+  //   { nickname: "Eileen", highscore: "3/6" },
+  //   { nickname: "Tzima", highscore: "5/6" },
+  //   { nickname: "Coleen", highscore: "1/6" },
+  // ];
+  // const [players, setPlayers] = useState(mockPlayers);
+  const [players, setPlayers] = useState([]);
 
-  useEffect(() => {
+  const getPlayers = () => {
     fetch("http://localhost:4000/api/scores")
       .then((response) => response.json())
-      .then((scores) => {
-        // for (let index in students) {
-        //   if (index !== "3") {
-        //     setStudents(students);
-        //   }
-        // }
+      .then((leaderboard) => {
+        setPlayers(leaderboard);
+        console.log(players);
       });
-  }, []);
-
-  const addScore = (newScore) => {
-    setPlayers((players) => [...players, setPlayers]);
   };
 
+  const addScore = (newScore) => {
+    setPlayers((players) => [...players, newScore]);
+  };
+
+  useEffect(() => {
+    getPlayers();
+  }, []);
   return (
     <div className="highscores">
       <h3> Highscores </h3>
