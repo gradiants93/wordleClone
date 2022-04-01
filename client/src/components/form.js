@@ -1,63 +1,47 @@
 import { useState } from "react";
 
-const Form = (props) => {
-  const [student, setStudent] = useState({
-    firstname: "",
-    lastname: "",
-  });
+const Form = ({ addScore }) => {
+  const [player, setPlayer] = useState("");
 
   //create functions that handle the event of the user typing into the form
-  const handleNameChange = (event) => {
-    const firstname = event.target.value;
-    setStudent((student) => ({ ...student, firstname }));
-  };
-
-  const handleLastnameChange = (event) => {
-    const lastname = event.target.value;
-    setStudent((student) => ({ ...student, lastname }));
+  const handleNickname = (event) => {
+    const nickname = event.target.value;
+    setPlayer(nickname);
   };
 
   //A function to handle the post request
-  const postStudent = (newStudent) => {
-    return fetch("http://localhost:4000/api/students", {
+  const postScore = (newScore) => {
+    return fetch("http://localhost:4000/api/scores", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newStudent),
+      body: JSON.stringify(newScore),
     })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log("From the post ", data);
-        props.addStudent(data);
+        addScore(data);
       });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postStudent(student);
+    postScore(player);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <label>First Name</label>
+    <form onSubmit={handleSubmit} className={"form"}>
+      <br></br>
+      <span>Save your score?</span>
+      <fieldset style={{ border: "none" }}>
+        <label style={{ fontSize: "1rem" }}>Nickname </label>
         <input
           type="text"
-          id="add-user-name"
-          placeholder="First Name"
+          id="add-nickname"
+          placeholder="Nickname"
           required
-          value={student.name}
-          onChange={handleNameChange}
-        />
-        <label>Last Name</label>
-        <input
-          type="text"
-          id="add-user-lastname"
-          placeholder="Last Name"
-          required
-          value={student.lastname}
-          onChange={handleLastnameChange}
+          value={player}
+          onChange={handleNickname}
         />
       </fieldset>
       <button type="submit">Add</button>
