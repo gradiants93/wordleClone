@@ -1,17 +1,17 @@
-import { useImperativeHandle } from "react";
+import { useState } from "react";
 
-export default function Keyboard() {
+export default function Keyboard({ onChar, onCheck, onDelete }) {
   const onClick = (value) => {
     console.log(value);
     if (value === "ENTER") {
       console.log("Enter");
-      //   onEnter();
+      onCheck();
     } else if (value === "DELETE") {
       console.log("Delete");
-      //   onDelete();
+      onDelete();
     } else {
       console.log("letter");
-      //   onChar(value);
+      onChar(value);
     }
   };
   return (
