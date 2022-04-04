@@ -26,6 +26,11 @@ export default function GameBoard() {
     if (col === 6) {
       setCol(1);
       setRow(row + 1);
+      if (guess.join() === word.join()) {
+        alert("Correct!");
+      } else if (guess.join() !== word.join()) {
+        alert("Try again");
+      }
       console.log("guess", guess, "word", word, guess.join() === word.join());
       setGuess([]);
     }
